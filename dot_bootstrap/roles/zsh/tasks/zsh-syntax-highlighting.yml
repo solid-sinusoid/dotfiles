@@ -1,0 +1,15 @@
+---
+- name: Check for Zsh Syntax Highlighting
+  ansible.builtin.stat:
+    path: "{{ ansible_env.HOME }}/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting"
+  register: syntax_highlighting_exist
+
+- name: Clone Zsh Syntax Highlighting
+  ansible.builtin.git:
+    clone: true
+    depth: 1
+    dest: "{{ ansible_env.HOME }}/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting"
+    repo: https://github.com/zsh-users/zsh-syntax-highlighting
+    update: true
+    version: master
+  when: not syntax_highlighting_exist.stat.exists

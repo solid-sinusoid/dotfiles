@@ -1,0 +1,15 @@
+---
+- name: Check for Zsh Autosuggestions
+  ansible.builtin.stat:
+    path: "{{ ansible_env.HOME }}/.oh-my-zsh/custom/plugins/zsh-autosuggestions"
+  register: autosuggestions_exist
+
+- name: Clone Zsh Autosuggestions
+  ansible.builtin.git:
+    clone: true
+    depth: 1
+    dest: "{{ ansible_env.HOME }}/.oh-my-zsh/custom/plugins/zsh-autosuggestions"
+    repo: https://github.com/zsh-users/zsh-autosuggestions
+    update: true
+    version: master
+  when: not autosuggestions_exist.stat.exists

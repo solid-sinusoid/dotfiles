@@ -1,0 +1,8 @@
+- name: Install apt packages
+  ansible.builtin.apt:
+    name:
+      - tmux
+      - btop
+      - git
+      - fzf
+      - ripgrep

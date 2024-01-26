@@ -1,0 +1,14 @@
+- name: Install AstroNvim
+  ansible.builtin.git:
+    repo: https://github.com/AstroNvim/AstroNvim
+    dest: "{{ ansible_env.HOME }}/.config/nvim"
+    depth: 1
+    version: main
+    update: no
+
+- name: Setup AstroNvim
+  ansible.builtin.git:
+    repo: git@github.com:solid-sinusoid/my-astronvim-config.git
+    dest: "{{ ansible_env.HOME }}/.config/nvim/lua/user"
+    version: main
+    update: no

@@ -1,0 +1,25 @@
+# install_oh_my_tmux.yml
+---
+- name: Check if oh-my-tmux repository exists
+  ansible.builtin.stat:
+    path: "{{ ansible_env.HOME }}/.oh-my-tmux"
+  register: oh_my_tmux_exist
+
+- name: Clone oh-my-tmux repository if not exists
+  ansible.builtin.git:
+    repo: https://github.com/gpakosz/.tmux.git
+    dest: "{{ ansible_env.HOME }}/.oh-my-tmux"
+    version: master
+  when: not oh_my_tmux_exist.stat.exists
+
+- name: Check if tmux.conf exists
+  ansible.builtin.stat:
+    path: "{{ ansible_env.HOME }}/.oh-my-tmux"
+  register: tmux_conf_exist
+
+- name: Create symlink for tmux.conf if not exists
+  ansible.builtin.file:
+    src: "{{ ansible_env.HOME }}/.oh-my-tmux/.tmux.conf"
+    dest: "{{ ansible_env.HOME }}/.config/tmux/tmux.conf"
+    state: link
+  when: not tmux_conf_exist.stat.exists

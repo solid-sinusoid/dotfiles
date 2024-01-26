@@ -1,0 +1,14 @@
+- name: Check for Zsh Completions
+  ansible.builtin.stat:
+    path: "{{ ansible_env.HOME }}/.oh-my-zsh/custom/plugins/zsh-completions"
+  register: completions_exist
+
+- name: Clone Zsh Completions
+  ansible.builtin.git:
+    clone: true
+    depth: 1
+    dest: "{{ ansible_env.HOME }}/.oh-my-zsh/custom/plugins/zsh-completions"
+    repo: https://github.com/zsh-users/zsh-completions
+    update: true
+    version: master
+  when: not completions_exist.stat.exists

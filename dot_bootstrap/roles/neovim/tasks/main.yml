@@ -1,0 +1,40 @@
+---
+- name: Check if nvim is installed
+  ansible.builtin.command: "command -v nvim"
+  register: nvim_installed
+  changed_when: false
+  ignore_errors: true
+
+- name: Install build dependencies, clone Neovim repository, and build/install Neovim
+  when: nvim_installed.rc != 0
+  block:
+    - name: Install build dependencies for Neovim
+      ansible.builtin.package:
+        name: "{{ item }}"
+        state: present
+      with_items:
+        - ninja-build
+        - gettext
+        - cmake
+        - unzip
+        - curl
+
+    - name: Clone Neovim repository
+      ansible.builtin.git:
+        repo: https://github.com/neovim/neovim.git
+        dest: "{{ ansible_env.HOME }}/neovim"
+        update: true
+        version: master
+
+    - name: Build and install Neovim
+      community.general.make:
+        chdir: "{{ ansible_env.HOME }}/neovim/"
+
+    - name: Copy Neovim binary to ~/.local/bin
+      ansible.builtin.copy:
+        src: "{{ ansible_env.HOME }}/neovim/build/bin/nvim"
+        dest: "~/.local/bin/"
+        mode: "0755"
+
+- name: Configure Neovim
+  ansible.builtin.include_tasks: astronvim.yml

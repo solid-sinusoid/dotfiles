@@ -1,0 +1,16 @@
+
+# install_powerlevel10k.yml
+---
+- name: Check for Powerlevel10k
+  ansible.builtin.stat:
+    path: "{{ ansible_env.HOME }}/.oh-my-zsh/custom/themes/powerlevel10k/"
+  register: p10k_exist
+
+- name: Download Powerlevel10k
+  ansible.builtin.git:
+    clone: true
+    repo: https://github.com/romkatv/powerlevel10k.git
+    dest: "{{ ansible_env.HOME }}/.oh-my-zsh/custom/themes/powerlevel10k/"
+    force: true
+    version: master
+  when: not p10k_exist.stat.exists

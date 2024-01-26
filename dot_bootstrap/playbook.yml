@@ -1,0 +1,8 @@
+- name: Configure host
+  hosts: localhost
+  roles:
+    - role: apt
+    - role: neovim
+    - role: zsh
+    - role: tmux
+    - role: fonts

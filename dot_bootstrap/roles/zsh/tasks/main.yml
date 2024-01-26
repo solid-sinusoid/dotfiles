@@ -1,0 +1,31 @@
+# install_oh_my_zsh.yml
+---
+- name: Check for Oh My Zsh
+  ansible.builtin.stat:
+    path: "{{ ansible_env.HOME }}/.oh-my-zsh"
+  register: zsh_exist
+
+- name: Download Oh My Zsh
+  ansible.builtin.get_url:
+    url: https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh
+    dest: "{{ ansible_env.HOME }}/Downloads/zsh-install.sh"
+    mode: '0755'
+  when: not zsh_exist.stat.exists
+
+- name: Execute Oh My Zsh installation script
+  ansible.builtin.script: sh "{{ ansible_env.HOME }}/Downloads/zsh-install.sh"
+  become: false
+  when: not zsh_exist.stat.exists
+  changed_when: false
+
+- name: Install powerkine10k
+  ansible.builtin.include_tasks: powerkine10k.yml
+
+- name: Install zsh-autosuggestions
+  ansible.builtin.include_tasks: zsh-autosuggestions.yml
+
+- name: Install zsh-syntax-highlighting
+  ansible.builtin.include_tasks: zsh-syntax-highlighting.yml
+
+- name: Install zsh-completions
+  ansible.builtin.include_tasks: zsh-completions.yml
