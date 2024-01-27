@@ -120,6 +120,8 @@ alias c="clear"
 alias l="exa --long --all --group"
 alias lsg="exa --long --git"
 alias tree="exa --tree"
+alias cm="chezmoi"
+
 export PATH=$PATH:$HOME/.local/share/bob/v0.9.5/nvim-linux64/bin
 source /opt/ros/humble/setup.zsh
 eval "$(register-python-argcomplete3 ros2)"
