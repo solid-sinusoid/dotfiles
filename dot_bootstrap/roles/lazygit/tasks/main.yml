@@ -1,0 +1,40 @@
+---
+- name: Check Lazygit installation
+  ansible.builtin.command: lazygit --version
+  register: lazygit_installed
+  ignore_errors: true
+  # changed_when: lazygit_installed.rc != 0
+
+- name: Install Lazygit
+  when: lazygit_installed == 0
+  block:
+    - name: Get latest Lazygit version from GitHub API
+      ansible.builtin.uri:
+        url: "https://api.github.com/repos/jesseduffield/lazygit/releases/latest"
+        return_content: true
+      register: lazygit_release
+
+    - name: Extract Lazygit version
+      ansible.builtin.set_fact:
+        lazygit_version: "{{ lazygit_release.json.tag_name | regex_replace('v', '') }}"
+
+    - name: Download Lazygit binary
+      ansible.builtin.get_url:
+        url: "https://github.com/jesseduffield/lazygit/releases/latest/download/lazygit_{{ lazygit_version }}_Linux_x86_64.tar.gz"
+        dest: "/tmp/lazygit.tar.gz"
+        mode: "0755"
+      become: true
+
+    - name: Extract Lazygit binary
+      ansible.builtin.unarchive:
+        src: "/tmp/lazygit.tar.gz"
+        dest: "/tmp"
+        remote_src: true
+      become: true
+
+    - name: Copy Lazygit binary to /usr/local/bin
+      ansible.builtin.copy:
+        src: "/tmp/lazygit"
+        dest: "/usr/local/bin/lazygit"
+        mode: "0755"  # Set appropriate permissions
+      become: true
