@@ -6,3 +6,4 @@
     - role: zsh
     - role: tmux
     - role: fonts
+    - role: lazygit

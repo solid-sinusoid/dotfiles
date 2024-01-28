@@ -1,8 +1,7 @@
 ---
 - name: Check if nvim is installed
-  ansible.builtin.command: "command -v nvim"
+  ansible.builtin.shell: command -v nvim > /dev/null 2>&1
   register: nvim_installed
-  changed_when: false
   ignore_errors: true
 
 - name: Install build dependencies, clone Neovim repository, and build/install Neovim
