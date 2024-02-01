@@ -1,2 +1,24 @@
-neovim:
-  url: https://github.com/neovim/neovim/releases/download/v0.9.5/nvim-linux64.tar.gz
+neovimld_path: "{{ ansible_env.HOME }}/build/nvim"
+nvim_repo: "https://github.com/neovim/neovim.git"
+nvim_install_path: "{{ ansible_env.HOME }}/neovim"
+nvim_bin_install_path: "{{ ansible_env.HOME }}/.local/bin"
+
+# defaults file for nvimBuild
+nvim_build_it: no
+nvim_daily_limit: false
+nvim_dirs_mk: true
+
+nvim_source: neovim/neovim
+
+nvim_dirs:
+   - "{{ ansible_env.HOME }}/.build"
+   - "{{ ansible_env.HOME }}/.config"
+   - "{{ ansible_env.HOME }}/.local"
+   - "{{ ansible_env.HOME }}/.cache"
+   - "{{ ansible_env.HOME }}/.cache/nvim"
+   - "{{ ansible_env.HOME }}/.cache/nvim/swag"
+   - "{{ ansible_env.HOME }}/.cache/nvim/undodir"
+   - "{{ ansible_env.HOME }}/.cache/nvim/backup"
+   - "{{ ansible_env.HOME }}/.cache/nvim/view"
+   - "{{ ansible_env.HOME }}/.cache/nvim/spell"
+   - "{{ ansible_env.HOME }}/.local/share":

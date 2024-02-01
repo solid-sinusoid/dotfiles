@@ -21,19 +21,27 @@
     - name: Clone Neovim repository
       ansible.builtin.git:
         repo: https://github.com/neovim/neovim.git
-        dest: "{{ ansible_env.HOME }}/neovim"
+        dest: "{{ nvim_install_path }}"
         update: true
-        version: master
+        version: "stable"
+        force: true
 
-    - name: Build and install Neovim
-      community.general.make:
-        chdir: "{{ ansible_env.HOME }}/neovim/"
+    - name: Build Neovim
+      ansible.builtin.command: make CMAKE_EXTRA_FLAGS="-DCMAKE_INSTALL_PREFIX={{ nvim_install_path }}"
+      args:
+        chdir: "{{ nvim_install_path }}"
+        
+    - name: Install Neovim
+      ansible.builtin.command: make install
+      args:
+        chdir: "{{ nvim_install_path }}"
+
 
     - name: Copy Neovim binary to ~/.local/bin
-      ansible.builtin.copy:
-        src: "{{ ansible_env.HOME }}/neovim/build/bin/nvim"
-        dest: "~/.local/bin/"
-        mode: "0755"
+      ansible.builtin.file:
+        src: "/home/bill-finger/neovim/bin/neovim"
+        dest: "/home/bill-finger/.local/bin/neovim"
+        state: link
 
 - name: Configure Neovim
   ansible.builtin.include_tasks: astronvim.yml

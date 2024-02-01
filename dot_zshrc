@@ -114,18 +114,22 @@ source $ZSH/oh-my-zsh.sh
 alias zshconfig="mate ~/.zshrc"
 alias ohmyzsh="mate ~/.oh-my-zsh"
 alias m="make"
-alias n="nvim ."
+alias n="nvim"
 alias v="vim"
 alias c="clear"
 alias l="exa --long --all --group"
 alias lsg="exa --long --git"
 alias tree="exa --tree"
 alias cm="chezmoi"
+alias rr="ranger"
+
+export EDITOR=nvim
 
 export PATH=$PATH:$HOME/.local/share/bob/v0.9.5/nvim-linux64/bin
 source /opt/ros/humble/setup.zsh
-eval "$(register-python-argcomplete3 ros2)"
-eval "$(register-python-argcomplete3 colcon)"
+# eval "$(register-python-argcomplete3 ros2)"
+# eval "$(register-python-argcomplete3 colcon)"
+source /usr/share/colcon_argcomplete/hook/colcon-argcomplete.zsh
 export IGN_GAZEBO_RESOURCE_PATH=:~/rbs_ws/install/robotiq_description/share/:~/rbs_ws/install/rbs_simulation/share/rbs_simulation/:$HOME/assembly/robossembler-stuff/world/chess/models
 
 
