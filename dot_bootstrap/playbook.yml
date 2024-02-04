@@ -1,9 +1,12 @@
 - name: Configure host
   hosts: localhost
   roles:
-    - role: apt
-    - role: neovim
-    - role: zsh
-    - role: tmux
-    - role: fonts
-    - role: lazygit
+    - apt
+    - neovim
+    - zsh
+    - tmux
+    - fonts
+    - lazygit
+    - rust
+    - alacritty
+    - nodejs

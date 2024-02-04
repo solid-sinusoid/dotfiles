@@ -1,0 +1,25 @@
+- name: Check if NodeJS is installed
+  ansible.builtin.shell: command -v node 
+  register: nodejs_installed
+  ignore_errors: true
+
+- name: Check NodeJS version
+  ansible.builtin.shell: node --version
+  when: nodejs_installed is succeeded
+  register: nodejs_version
+#
+- name: Extract NodeJS version
+  set_fact:
+    nodejs_version_fact: "{{ nodejs_version.stdout_lines[0] | regex_replace('v', '') }}"
+  when: nodejs_version is not skipped
+
+- name: Debug NodeJS version
+  ansible.builtin.debug:
+    msg: "Node.js version is {{ nodejs_version_fact }}"
+  when: nodejs_version is not skipped
+
+- name: Install NodeJS
+  when: nodejs_installed is failed
+  block:
+    - name: Download apt and install
+      ansible.builtin.shell: curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash - && sudo apt-get install -y nodejs

@@ -1,0 +1,56 @@
+- name: Check if Alacritty is installed
+  ansible.builtin.shell: command -v alacritty 
+  register: alacritty_installed
+  ignore_errors: true
+
+- name: Install Alacritty
+  when: alacritty_installed is failed
+  block:
+    - name: Install required packages
+      become: true
+      ansible.builtin.apt:
+        name: "{{ item }}"
+        state: present
+      with_items:
+        - cmake
+        - pkg-config
+        - libfreetype6-dev
+        - libfontconfig1-dev
+        - libxcb-xfixes0-dev
+        - libxkbcommon-dev
+        - python3
+
+    - name: Clone Alacritty repository
+      # become: true
+      ansible.builtin.git:
+        repo: https://github.com/alacritty/alacritty.git
+        dest: ~/.alacritty
+
+    - name: Build Alacritty
+      # become: true
+      ansible.builtin.command: cargo build --release
+      args:
+        chdir: ~/.alacritty
+
+    - name: Copy Alacritty binary to bin directory
+      become: true
+      ansible.builtin.copy:
+        src: ~/.alacritty/target/release/alacritty
+        dest: /usr/local/bin
+        mode: "0755"
+
+    - name: Copy Alacritty logo
+      become: true
+      ansible.builtin.copy:
+        src: ~/.alacritty/extra/logo/alacritty-term.svg
+        dest: /usr/share/pixmaps/Alacritty.svg
+
+    - name: Install Alacritty desktop file
+      become: true
+      ansible.builtin.copy:
+        src: ~/.alacritty/extra/linux/Alacritty.desktop
+        dest: /usr/share/applications/Alacritty.desktop
+
+    - name: Update desktop database
+      become: true
+      command: update-desktop-database
