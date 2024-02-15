@@ -4,7 +4,6 @@
 #         without any warranty.
 #         Copyright 2012— Gregory Pakosz (@gpakosz).
 
-# TERM=xterm-kitty
 # -- session creation ----------------------------------------------------------
 
 # prompt for session name when creating a new session, possible values are:
@@ -374,7 +373,7 @@ set -g mode-keys vi
 
 # move status line to top
 set -g status-position top
-set -g default-terminal tmux-256color
+set -g default-terminal xterm-256color
 
 set -g @suspend_key 'F12'
 
