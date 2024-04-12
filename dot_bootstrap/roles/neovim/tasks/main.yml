@@ -27,7 +27,7 @@
         force: true
 
     - name: Build Neovim
-      ansible.builtin.command: make CMAKE_EXTRA_FLAGS="-DCMAKE_INSTALL_PREFIX={{ nvim_install_path }}"
+      ansible.builtin.command: make CMAKE_EXTRA_FLAGS="-DCMAKE_INSTALL_PREFIX={{ nvim_install_path }} -DCMAKE_BUILD_TYPE=Release"
       args:
         chdir: "{{ nvim_install_path }}"
         

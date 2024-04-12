@@ -1,0 +1,3 @@
+---
+- name: Restart shell
+  command: "exec zsh -l"

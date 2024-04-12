@@ -1,0 +1,13 @@
+---
+- name: Установка Starship
+  shell: curl -fsSL https://starship.rs/install.sh | bash
+  args:
+    creates: /usr/local/bin/starship  # Проверка, была ли установка Starship
+
+- name: Добавление настройки в ~/.zshrc
+  lineinfile:
+    path: "{{ ansible_env.HOME }}/.zshrc"
+    line: 'eval "$(starship init zsh)"'
+    insertafter: EOF
+  notify:
+    - Restart shell

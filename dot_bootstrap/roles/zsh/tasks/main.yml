@@ -18,9 +18,6 @@
   when: not zsh_exist.stat.exists
   changed_when: false
 
-- name: Install powerkine10k
-  ansible.builtin.include_tasks: powerkine10k.yml
-
 - name: Install zsh-autosuggestions
   ansible.builtin.include_tasks: zsh-autosuggestions.yml
 
