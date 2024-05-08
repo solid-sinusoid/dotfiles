@@ -6,7 +6,7 @@
 #: individual font faces and even specify special fonts for particular
 #: characters.
 
-font_family      JetBrainsMono Nerd Font
+font_family      monospace
 # bold_font        JetBrains Mono Bold
 # italic_font      JetBrains Mono Italic
 # bold_italic_font JetBrains Mono Bold Italic
@@ -73,22 +73,19 @@ font_size 12.0
 #: }}}
 
 #: Cursor customization {{{
-
-# cursor #ffd17f
-
+# cursor #56b6c2
 #: Default cursor color
-
-# cursor_text_color background
+# cursor_text_color #F7F7F7
 
 #: Choose the color of text under the cursor. If you want it rendered
 #: with the background color of the cell underneath instead, use the
 #: special keyword: background
 
-# cursor_shape block
+cursor_shape block
 
 #: The cursor shape can be one of (block, beam, underline)
 
-# cursor_blink_interval -1
+cursor_blink_interval 0
 
 #: The interval (in seconds) at which to blink the cursor. Set to zero
 #: to disable blinking. Negative values mean use system default. Note
@@ -104,7 +101,7 @@ font_size 12.0
 
 #: Scrollback {{{
 
-# scrollback_lines 2000
+scrollback_lines 10000
 
 #: Number of lines of history to keep in memory for scrolling back.
 #: Memory is allocated on demand. Negative numbers are (effectively)
@@ -250,7 +247,7 @@ font_size 12.0
 #: in full screen programs that redraw the entire screen on each loop,
 #: because kitty is so fast that partial screen updates will be drawn.
 
-# sync_to_monitor yes
+sync_to_monitor yes
 
 #: Sync screen updates to the refresh rate of the monitor. This
 #: prevents tearing (https://en.wikipedia.org/wiki/Screen_tearing)
@@ -409,7 +406,7 @@ single_window_margin_width 0.0
 
 #: The margin to the left and right of the tab bar (in pts)
 
-# tab_bar_style fade
+tab_bar_style powerline
 
 #: The tab bar style, can be one of: fade, separator, powerline, or
 #: hidden. In the fade style, each tab's edges fade into the
@@ -472,13 +469,12 @@ single_window_margin_width 0.0
 #: }}}
 
 #: Color scheme {{{
-
-foreground #f0fdff
-background #2a2e38
+# foreground #f0fdff
+# background #1e222a
 
 #: The foreground and background colors
 
-# background_opacity 1.0
+# background_opacity 0.7
 
 #: The opacity of the background. A number between 0 and 1, where 1 is
 #: opaque and 0 is fully transparent.  This will only work if
@@ -523,41 +519,36 @@ background #2a2e38
 
 
 #: black
-color0 #2a2e38
-color8 #71798a
+# color0 #2a2e38
+# color8 #71798a
 
 #: red
-color1  #d08785
-color9 #ff3334
+# color1  #d08785
+# color9 #ff3334
 
 #: green
-color2  #6f98b3
-color10 #9ec400
+# color2  #6f98b3
+# color10 #9ec400
 
 #: yellow
-
-color3  #fdf8ce
-color11 #e7c547
+# color3  #fdf8ce
+# color11 #e7c547
 
 #: blue
-
-color4  #a6b8cc
-color12 #7aa6da
+# color4  #a6b8cc
+# color12 #7aa6da
 
 #: magenta
-
-color5  #fcdbd9
-color13 #b77ee0
+# color5  #fcdbd9
+# color13 #b77ee0
 
 #: cyan
-
-color6  #ffd17f
-color14 #54ced6
+# color6  #ffd17f
+# color14 #54ced6
 
 #: white
-
-color7  #f0fdff
-color15 #ffffff
+# color7  #f0fdff
+# color15 #ffffff
 
 #: }}}
 
@@ -630,7 +621,7 @@ color15 #ffffff
 #: with respect to the kitty config directory. Environment variables
 #: in the path are expanded.
 
-# clipboard_control write-clipboard write-primary
+clipboard_control write-clipboard write-primary read-clipboard
 
 #: Allow programs running in kitty to read and write from the
 #: clipboard. You can control exactly which actions are allowed. The
@@ -1109,3 +1100,10 @@ color15 #ffffff
 
 # }}}
 
+
+startup_session launch.conf
+
+# BEGIN_KITTY_THEME
+# Gruvbox Dark
+include current-theme.conf
+# END_KITTY_THEME

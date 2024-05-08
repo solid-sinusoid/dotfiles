@@ -1,25 +1,25 @@
+# install_oh_my_tmux.yml
 ---
-- name: Клонирование репозитория tmux
-  git:
-    repo: https://github.com/tmux/tmux.git
-    dest: "{{ ansible_env.HOME }}/libs/tmux"
-    update: no 
-  register: git_clone
+- name: Check if oh-my-tmux repository exists
+  ansible.builtin.stat:
+    path: "{{ ansible_env.HOME }}/.oh-my-tmux"
+  register: oh_my_tmux_exist
 
-- name: Переход в каталог tmux
-  command: cd "{{ ansible_env.HOME }}/libs/tmux"
-  args:
-    chdir: "{{ ansible_env.HOME }}/libs/tmux"
-  when: git_clone.changed
+- name: Clone oh-my-tmux repository if not exists
+  ansible.builtin.git:
+    repo: https://github.com/gpakosz/.tmux.git
+    dest: "{{ ansible_env.HOME }}/.oh-my-tmux"
+    version: master
+  when: not oh_my_tmux_exist.stat.exists
 
-- name: Выполнение скрипта autogen.sh
-  shell: sh autogen.sh
-  args:
-    chdir: "{{ ansible_env.HOME }}/libs/tmux"
-  when: git_clone.changed
+- name: Check if tmux.conf exists
+  ansible.builtin.stat:
+    path: "{{ ansible_env.HOME }}/.oh-my-tmux"
+  register: tmux_conf_exist
 
-- name: Конфигурация и сборка tmux
-  shell: ./configure --prefix="{{ ansible_env.HOME }}/libs/tmux" && make && make install
-  args:
-    chdir: "{{ ansible_env.HOME }}/libs/tmux"
-  when: git_clone.changed
+- name: Create symlink for tmux.conf if not exists
+  ansible.builtin.file:
+    src: "{{ ansible_env.HOME }}/.oh-my-tmux/.tmux.conf"
+    dest: "{{ ansible_env.HOME }}/.config/tmux/tmux.conf"
+    state: link
+  when: not tmux_conf_exist.stat.exists
