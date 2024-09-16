@@ -6,10 +6,11 @@
 #: individual font faces and even specify special fonts for particular
 #: characters.
 
-font_family      monospace
-# bold_font        JetBrains Mono Bold
-# italic_font      JetBrains Mono Italic
-# bold_italic_font JetBrains Mono Bold Italic
+# font_family      Iosevka Nerd Font Mono Medium
+# font_family     FiraCode Nerd Font
+# bold_font        auto
+# italic_font      auto
+# bold_italic_font auto
 
 #: You can specify different fonts for the bold/italic/bold-italic
 #: variants. To get a full list of supported fonts use the `kitty
@@ -474,7 +475,7 @@ tab_bar_style powerline
 
 #: The foreground and background colors
 
-# background_opacity 0.7
+# background_opacity 0.9
 
 #: The opacity of the background. A number between 0 and 1, where 1 is
 #: opaque and 0 is fully transparent.  This will only work if
@@ -1101,9 +1102,17 @@ clipboard_control write-clipboard write-primary read-clipboard
 # }}}
 
 
-startup_session launch.conf
+# startup_session launch.conf
 
 # BEGIN_KITTY_THEME
-# Gruvbox Dark
-include current-theme.conf
+# Atom
+include paradise.conf
 # END_KITTY_THEME
+
+
+# BEGIN_KITTY_FONTS
+font_family      family="JetBrainsMono Nerd Font Mono"
+bold_font        auto
+italic_font      auto
+bold_italic_font auto
+# END_KITTY_FONTS

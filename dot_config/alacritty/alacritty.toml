@@ -33,7 +33,7 @@ TERM = "xterm-256color"
 size = 12
 
 [font.normal]
-family = "monospace"
+family = "JetBrainsMono Nerd Font"
 
 [[keyboard.bindings]]
 action = "ToggleFullscreen"
