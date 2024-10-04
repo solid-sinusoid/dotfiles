@@ -1,4 +1,10 @@
 # vim:fileencoding=utf-8:ft=conf:foldmethod=marker
+#
+
+# kitty_mod ctrl+a
+
+# map kitty_mod>h move_window left
+# map kitty_mod>l move_window right
 
 #: Fonts {{{
 
@@ -341,7 +347,7 @@ single_window_margin_width 0.0
 #: visible. Negative values will cause the value of
 #: window_margin_width to be used instead.
 
-# window_padding_width 0.0
+window_padding_width 0.0
 
 #: The window padding (in pts) (blank area between the text and the
 #: window border)
@@ -407,7 +413,7 @@ single_window_margin_width 0.0
 
 #: The margin to the left and right of the tab bar (in pts)
 
-tab_bar_style powerline
+tab_bar_style fade
 
 #: The tab bar style, can be one of: fade, separator, powerline, or
 #: hidden. In the fade style, each tab's edges fade into the
@@ -1105,13 +1111,12 @@ clipboard_control write-clipboard write-primary read-clipboard
 # startup_session launch.conf
 
 # BEGIN_KITTY_THEME
-# Atom
-include paradise.conf
+include kanagawa.conf
 # END_KITTY_THEME
 
 
 # BEGIN_KITTY_FONTS
-font_family      family="JetBrainsMono Nerd Font Mono"
+font_family      family="JetBrainsMono Nerd Font"
 bold_font        auto
 italic_font      auto
 bold_italic_font auto
