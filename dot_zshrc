@@ -1,3 +1,7 @@
+#
+# if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+#   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+# fi
 # If you come from bash you might have to change your $PATH.
 export PATH=$HOME/bin:/usr/local/bin:$HOME/.local/bin:$PATH
 
@@ -29,6 +33,8 @@ plugins=(
   pip
   )
 
+# Keys
+bindkey '^ ' autosuggest-accept
 
 # Aliases
 alias n="nvim"
@@ -50,10 +56,6 @@ alias yy="yazi"
 alias cd="z"
 alias ip="ip -color=auto"
 alias lg="lazygit"
-
-
-# Keys
-bindkey '^ ' autosuggest-accept
 
 # Sources
 source $ZSH/oh-my-zsh.sh
@@ -79,6 +81,14 @@ fpath+=${ZDOTDIR:-~}/.zsh_functions
 eval "$(register-python-argcomplete3 ros2)"
 eval "$(register-python-argcomplete3 colcon)"
 eval "$(zoxide init zsh)"
-eval "$(starship init zsh)"
+# eval "$(starship init zsh)"
 eval "$(uv generate-shell-completion zsh)"
 
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+source ~/powerlevel10k/powerlevel10k.zsh-theme
+
+export NVM_DIR="$HOME/.config/nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+. "/home/narmak/.deno/env"
