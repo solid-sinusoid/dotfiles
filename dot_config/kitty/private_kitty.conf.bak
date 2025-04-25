@@ -1108,7 +1108,7 @@ clipboard_control write-clipboard write-primary read-clipboard
 # }}}
 
 
-# startup_session launch.conf
+#startup_session launch.conf
 
 # BEGIN_KITTY_THEME
 include kanagawa.conf
@@ -1116,7 +1116,7 @@ include kanagawa.conf
 
 
 # BEGIN_KITTY_FONTS
-font_family      family="JetBrainsMono Nerd Font"
+font_family      family="monispace"
 bold_font        auto
 italic_font      auto
 bold_italic_font auto
